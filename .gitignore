@@ -1,0 +1,3 @@
+*.log
+obj/
+bin/Debug/OgreExamples.exe
