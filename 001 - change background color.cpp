@@ -1,4 +1,6 @@
+#ifdef _WIN32
 #define _GLIBCXX_USE_CXX11_ABI 0
+#endif
 #include <SDL2/SDL.h>
 #include <OGRE/Ogre.h>
 #include <SDL2/SDL_syswm.h>
@@ -16,6 +18,8 @@ void exit_msg(char *msg) {
 }
 
 void cleanup() {
+    // delete OGRE root object
+    delete root;
     // free window
     SDL_DestroyWindow(window);
     // quite SDL
@@ -42,16 +46,20 @@ int main(int argc, char* args[]) {
     // create opengl context
     SDL_GLContext glcontext = SDL_GL_CreateContext(window);
 
-    // get window information
-    SDL_SysWMinfo info;
-    SDL_VERSION(&info.version);
-    SDL_GetWindowWMInfo(window, &info);
-
     // set OGRE properties to render to the SDL window
     Ogre::NameValuePairList params;
-    params["externalWindowHandle"] = Ogre::StringConverter::toString((unsigned long)info.info.win.window);
-    params["externalGLContext"] = Ogre::StringConverter::toString((unsigned long)glcontext);
-    params["externalGLControl"] = "1";
+    #ifdef _WIN32
+        // get window information
+        SDL_SysWMinfo info;
+        SDL_VERSION(&info.version);
+        SDL_GetWindowWMInfo(window, &info);
+
+        params["externalWindowHandle"] = Ogre::StringConverter::toString((unsigned long)info.info.win.window);
+        params["externalGLContext"] = Ogre::StringConverter::toString((unsigned long)glcontext);
+        params["externalGLControl"] = "1";
+    #elif __linux__
+        params["currentGLContext"] = "1";
+    #endif
 
     // initialize OGRE
     root->initialise(false);

@@ -6,7 +6,7 @@
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
-			<Target title="Debug">
+			<Target title="DebugWin">
 				<Option output="bin/Debug/OgreExamples" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
@@ -18,6 +18,18 @@
 				<Linker>
 					<Add option="-lglu32 -lopengl32 -lmingw32 -lSDL2main -lSDL2 -lOgreMain -static-libstdc++" />
 					<Add directory="./lib" />
+				</Linker>
+			</Target>
+			<Target title="DebugLinux">
+				<Option output="bin/Debug/OgreExamples" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add option="-lOgreMain -lSDL2 -lboost_system" />
 				</Linker>
 			</Target>
 			<Target title="Release">
