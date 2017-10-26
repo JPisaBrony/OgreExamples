@@ -27,9 +27,10 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="/usr/include/OGRE/" />
 				</Compiler>
 				<Linker>
-					<Add option="-lOgreMain -lSDL2 -lboost_system" />
+					<Add option="-lOgreMain -lOgreRTShaderSystem -lSDL2 -lboost_system" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -48,7 +49,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="001 - change background color.cpp" />
+		<Unit filename="002 - load mesh.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
