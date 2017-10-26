@@ -48,6 +48,7 @@ int main(int argc, char* args[]) {
 
     // set OGRE properties to render to the SDL window
     Ogre::NameValuePairList params;
+
     #ifdef _WIN32
         // get window information
         SDL_SysWMinfo info;
