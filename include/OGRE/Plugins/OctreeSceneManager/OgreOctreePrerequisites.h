@@ -1,59 +1,42 @@
-/*
------------------------------------------------------------------------------
-This source file is part of OGRE
-(Object-oriented Graphics Rendering Engine)
-For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2013 Torus Knot Software Ltd
+#ifndef _OgreOctreePluginExport_H
+#define _OgreOctreePluginExport_H
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
------------------------------------------------------------------------------
-*/
-
-#ifndef __OctreePrerequisites_H__
-#define __OctreePrerequisites_H__
-
-#include "OgrePrerequisites.h"
-
-//-----------------------------------------------------------------------
-// Forward declarations
-//-----------------------------------------------------------------------
-
-//-----------------------------------------------------------------------
-// Windows Settings
-//-----------------------------------------------------------------------
-
-#if (OGRE_PLATFORM == OGRE_PLATFORM_WIN32 || OGRE_PLATFORM == OGRE_PLATFORM_WINRT) && !defined(OGRE_STATIC_LIB)
-#   ifdef OGRE_OCTREEPLUGIN_EXPORTS
-#       define _OgreOctreePluginExport __declspec(dllexport)
-#   else
-#       if defined( __MINGW32__ )
-#           define _OgreOctreePluginExport
-#       else
-#    		define _OgreOctreePluginExport __declspec(dllimport)
-#       endif
-#   endif
-#elif defined ( OGRE_GCC_VISIBILITY )
-#    define _OgreOctreePluginExport  __attribute__ ((visibility("default")))
+#ifdef PLUGIN_OCTREESCENEMANAGER_STATIC_DEFINE
+#  define _OgreOctreePluginExport
+#  define PLUGIN_OCTREESCENEMANAGER_NO_EXPORT
 #else
-#   define _OgreOctreePluginExport
+#  ifndef _OgreOctreePluginExport
+#    ifdef Plugin_OctreeSceneManager_EXPORTS
+        /* We are building this library */
+#      define _OgreOctreePluginExport __declspec(dllexport)
+#    else
+        /* We are using this library */
+#      define _OgreOctreePluginExport __declspec(dllimport)
+#    endif
+#  endif
+
+#  ifndef PLUGIN_OCTREESCENEMANAGER_NO_EXPORT
+#    define PLUGIN_OCTREESCENEMANAGER_NO_EXPORT 
+#  endif
+#endif
+
+#ifndef PLUGIN_OCTREESCENEMANAGER_DEPRECATED
+#  define PLUGIN_OCTREESCENEMANAGER_DEPRECATED __attribute__ ((__deprecated__))
+#endif
+
+#ifndef PLUGIN_OCTREESCENEMANAGER_DEPRECATED_EXPORT
+#  define PLUGIN_OCTREESCENEMANAGER_DEPRECATED_EXPORT _OgreOctreePluginExport PLUGIN_OCTREESCENEMANAGER_DEPRECATED
+#endif
+
+#ifndef PLUGIN_OCTREESCENEMANAGER_DEPRECATED_NO_EXPORT
+#  define PLUGIN_OCTREESCENEMANAGER_DEPRECATED_NO_EXPORT PLUGIN_OCTREESCENEMANAGER_NO_EXPORT PLUGIN_OCTREESCENEMANAGER_DEPRECATED
+#endif
+
+#if 0 /* DEFINE_NO_DEPRECATED */
+#  ifndef PLUGIN_OCTREESCENEMANAGER_NO_DEPRECATED
+#    define PLUGIN_OCTREESCENEMANAGER_NO_DEPRECATED
+#  endif
 #endif
 
 #endif
-

@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2013 Torus Knot Software Ltd
+Copyright (c) 2000-2014 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -34,7 +34,12 @@ THE SOFTWARE.
 
 
 namespace Ogre {
-
+    /** \addtogroup Plugins
+    *  @{
+    */
+    /** \addtogroup BSPSceneManager
+    *  @{
+    */
     /** Support for loading and extracting data from a Quake3 level file.
     This class implements the required methods for opening Quake3 level files
     and extracting the pertinent data within. Ogre supports BSP based levels
@@ -59,7 +64,7 @@ namespace Ogre {
     be valid after the original call. This is why it has no accessor methods
     for reading it's internal state.
     */
-	class Quake3Level : public ResourceAlloc
+    class Quake3Level : public ResourceAlloc
     {
     public:
         Quake3Level();
@@ -161,6 +166,8 @@ namespace Ogre {
 
 
     };
+    /** @} */
+    /** @} */
 }
 
 

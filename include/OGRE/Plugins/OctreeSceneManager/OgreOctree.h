@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2013 Torus Knot Software Ltd
+Copyright (c) 2000-2014 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -37,14 +37,19 @@ email                : janders@users.sf.net
 #ifndef OCTREE_H
 #define OCTREE_H
 
-#include <OgreAxisAlignedBox.h>
-#include <OgreWireBoundingBox.h>
+#include "OgreAxisAlignedBox.h"
 
 #include <list>
 
 namespace Ogre
 {
-
+/** \addtogroup Plugins Plugins
+*  @{
+*/
+/** \defgroup Octree OctreeSceneManager
+* Octree datastructure for managing scene nodes.
+*  @{
+*/
 class OctreeNode;
 
 /** Octree datastructure for managing scene nodes.
@@ -123,7 +128,7 @@ public:
     void _getCullBounds( AxisAlignedBox * ) const;
 
 
-	typedef list< OctreeNode * >::type NodeList;
+    typedef vector< OctreeNode * >::type NodeList;
     /** Public list of SceneNodes attached to this particular octree
     */
     NodeList mNodes;
@@ -155,9 +160,9 @@ protected:
     Octree * mParent;
 
 };
-
+/** @} */
+/** @} */
 }
-
 #endif
 
 

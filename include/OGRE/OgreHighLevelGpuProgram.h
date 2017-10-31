@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2013 Torus Knot Software Ltd
+Copyright (c) 2000-2014 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -30,16 +30,17 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreGpuProgram.h"
+#include "OgreHeaderPrefix.h"
 
 namespace Ogre {
 
-	/** \addtogroup Core
-	*  @{
-	*/
-	/** \addtogroup Resources
-	*  @{
-	*/
-	/** Abstract base class representing a high-level program (a vertex or
+    /** \addtogroup Core
+    *  @{
+    */
+    /** \addtogroup Resources
+    *  @{
+    */
+    /** Abstract base class representing a high-level program (a vertex or
         fragment program).
     @remarks
         High-level programs are vertex and fragment programs written in a high-level
@@ -67,8 +68,10 @@ namespace Ogre {
         bool mHighLevelLoaded;
         /// The underlying assembler program
         GpuProgramPtr mAssemblerProgram;
-		/// Have we built the name->index parameter map yet?
-		mutable bool mConstantDefsBuilt;
+        /// Have we built the name->index parameter map yet?
+        mutable bool mConstantDefsBuilt;
+        /// Preprocessor options
+        String mPreprocessorDefines;
 
         /// Internal load high-level portion if not loaded
         virtual void loadHighLevel(void);
@@ -85,13 +88,13 @@ namespace Ogre {
         virtual void unloadHighLevelImpl(void) = 0;
         /// Populate the passed parameters with name->index map
         virtual void populateParameterNames(GpuProgramParametersSharedPtr params);
-		/** Build the constant definition map, must be overridden.
-		@note The implementation must fill in the (inherited) mConstantDefs field at a minimum, 
-			and if the program requires that parameters are bound using logical 
-			parameter indexes then the mFloatLogicalToPhysical and mIntLogicalToPhysical
-			maps must also be populated.
-		*/
-		virtual void buildConstantDefinitions() const = 0;
+        /** Build the constant definition map, must be overridden.
+        @note The implementation must fill in the (inherited) mConstantDefs field at a minimum, 
+            and if the program requires that parameters are bound using logical 
+            parameter indexes then the mFloatLogicalToPhysical and mIntLogicalToPhysical
+            maps must also be populated.
+        */
+        virtual void buildConstantDefinitions() const = 0;
 
         /** @copydoc Resource::loadImpl */
         void loadImpl();
@@ -113,25 +116,26 @@ namespace Ogre {
         */
         GpuProgramParametersSharedPtr createParameters(void);
         /** @copydoc GpuProgram::_getBindingDelegate */
-        GpuProgram* _getBindingDelegate(void) { return mAssemblerProgram.getPointer(); }
+        GpuProgram* _getBindingDelegate(void) { return mAssemblerProgram.get(); }
 
-		/** Get the full list of GpuConstantDefinition instances.
-		@note
-		Only available if this parameters object has named parameters.
-		*/
-		const GpuNamedConstants& getConstantDefinitions() const;
+        /** Get the full list of GpuConstantDefinition instances.
+        @note
+        Only available if this parameters object has named parameters.
+        */
+        const GpuNamedConstants& getConstantDefinitions() const;
 
-		/// Override GpuProgram::getNamedConstants to ensure built
-		const GpuNamedConstants& getNamedConstants() const { return getConstantDefinitions(); }
+        virtual size_t calculateSize(void) const;
 
-		virtual size_t calculateSize(void) const;
-
-
-
-
+        /** Sets the preprocessor defines used to compile the program. */
+        void setPreprocessorDefines(const String& defines) { mPreprocessorDefines = defines; }
+        /** Gets the preprocessor defines used to compile the program. */
+        const String& getPreprocessorDefines(void) const { return mPreprocessorDefines; }
     };
-	/** @} */
-	/** @} */
+    /** @} */
+    /** @} */
 
 }
+
+#include "OgreHeaderSuffix.h"
+
 #endif

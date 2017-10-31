@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2013 Torus Knot Software Ltd
+Copyright (c) 2000-2014 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -37,7 +37,12 @@ THE SOFTWARE.
 #include "OgreTextureUnitState.h"
 
 namespace Ogre {
-
+    /** \addtogroup Plugins
+    *  @{
+    */
+    /** \addtogroup BSPSceneManager
+    *  @{
+    */
 
     /** Class for recording Quake3 shaders.
         This is a temporary holding area since shaders are actually converted into
@@ -47,7 +52,7 @@ namespace Ogre {
         temporarily since their instantiations as Materials would use precious resources
         because of the automatic loading of textures etc.
     */
-	class Quake3Shader : public ResourceAlloc
+    class Quake3Shader : public ResourceAlloc
     {
     protected:
         String getAlternateName(const String& texName);
@@ -99,7 +104,7 @@ namespace Ogre {
 
         unsigned int flags;
         int numPasses;
-		typedef vector<Pass>::type PassList;
+        typedef vector<Pass>::type PassList;
         PassList pass;
         bool farbox;            // Skybox
         String farboxName;
@@ -114,6 +119,8 @@ namespace Ogre {
         Real fogDistance;
 
     };
+    /** @} */
+    /** @} */
 }
 
 #endif

@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2013 Torus Knot Software Ltd
+Copyright (c) 2000-2014 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -81,30 +81,30 @@ namespace Ogre {
         DataStreamPtr open(const String& filename, bool readOnly = true) const;
 
         /// @copydoc Archive::create
-        DataStreamPtr create(const String& filename) const;
+        DataStreamPtr create(const String& filename);
 
         /// @copydoc Archive::remove
-        void remove(const String& filename) const;
+        void remove(const String& filename);
 
         /// @copydoc Archive::list
-        StringVectorPtr list(bool recursive = true, bool dirs = false);
+        StringVectorPtr list(bool recursive = true, bool dirs = false) const;
 
         /// @copydoc Archive::listFileInfo
-        FileInfoListPtr listFileInfo(bool recursive = true, bool dirs = false);
+        FileInfoListPtr listFileInfo(bool recursive = true, bool dirs = false) const;
 
         /// @copydoc Archive::find
         StringVectorPtr find(const String& pattern, bool recursive = true,
-            bool dirs = false);
+            bool dirs = false) const;
 
         /// @copydoc Archive::findFileInfo
         FileInfoListPtr findFileInfo(const String& pattern, bool recursive = true,
             bool dirs = false) const;
 
         /// @copydoc Archive::exists
-        bool exists(const String& filename);
+        bool exists(const String& filename) const;
 
         /// @copydoc Archive::getModifiedTime
-        time_t getModifiedTime(const String& filename);
+        time_t getModifiedTime(const String& filename) const;
 
         /// Set whether filesystem enumeration will include hidden files or not.
         /// This should be called prior to declaring and/or initializing filesystem
@@ -127,7 +127,6 @@ namespace Ogre {
     class _OgreExport FileSystemArchiveFactory : public ArchiveFactory
     {
     public:
-        virtual ~FileSystemArchiveFactory() {}
         /// @copydoc FactoryObj::getType
         const String& getType(void) const;
         /// @copydoc FactoryObj::createInstance

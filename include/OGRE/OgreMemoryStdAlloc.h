@@ -4,7 +4,7 @@ This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2013 Torus Knot Software Ltd
+Copyright (c) 2000-2014 Torus Knot Software Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -56,7 +56,7 @@ namespace Ogre
 	class _OgreExport StdAllocPolicy
 	{
 	public:
-		static inline void* allocateBytes(size_t count, 
+		static inline DECL_MALLOC void* allocateBytes(size_t count, 
 #if OGRE_MEMORY_TRACKER
 			const char* file = 0, int line = 0, const char* func = 0
 #else
@@ -64,7 +64,7 @@ namespace Ogre
 #endif
             )
 		{
-			void* ptr = malloc(count);
+			void* ptr = new unsigned char[count];
 #if OGRE_MEMORY_TRACKER
 			// this alloc policy doesn't do pools
 			MemoryTracker::get()._recordAlloc(ptr, count, 0, file, line, func);
@@ -77,7 +77,7 @@ namespace Ogre
 #if OGRE_MEMORY_TRACKER
 			MemoryTracker::get()._recordDealloc(ptr);
 #endif
-			free(ptr);
+			delete[]((unsigned char*)ptr);
 		}
 
 		/// Get the maximum size of a single allocation
@@ -111,7 +111,7 @@ namespace Ogre
 		typedef int IsValidAlignment
 			[Alignment <= 128 && ((Alignment & (Alignment-1)) == 0) ? +1 : -1];
 
-		static inline void* allocateBytes(size_t count, 
+		static inline DECL_MALLOC void* allocateBytes(size_t count, 
 #if OGRE_MEMORY_TRACKER
 			const char* file = 0, int line = 0, const char* func = 0
 #else
